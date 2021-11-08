@@ -1,4 +1,4 @@
-from pywebio import input, output
+from pywebio import input, output, pin, start_server
 from sqlfmt.api import format_string
 from sqlfmt.mode import Mode
 
@@ -18,24 +18,26 @@ def greeting() -> str:
     return "\n".join(greeting)
 
 
-def display_textarea(value="") -> str:
+def update_textarea() -> None:
     mode = Mode()
-    source_sql = input.textarea(
-        rows=20,
-        code={"mode": "sql", "indentUnit": 4},
-        value=value
-    )
+    source_sql = pin.pin["source_sql"]
     formatted = format_string(source=source_sql, mode=mode)
+    pin.pin_update("source_sql", value=formatted)
     return formatted
 
 def main(value="") -> None:
     output.put_markdown(greeting(), lstrip=True)
-    formatted = value
-    while True:
-        with output.use_scope('playground', clear=True):
-            formatted = display_textarea(value=formatted)
-            output.put_code(formatted, language="sql")
-
+    pin.put_textarea(
+        "source_sql",
+        rows=20,
+        code={"mode": "sql", "indentUnit": 4},
+        value=value
+    )
+    output.put_button(
+        label="sqlfmt!",
+        onclick=update_textarea,
+        color="primary",
+    )
 
 if __name__ == "__main__":
-    main()
+    start_server(main)
