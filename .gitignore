@@ -1,0 +1,13 @@
+.mypy_cache
+.pytest_cache
+.tox
+.venv
+.vscode
+dist
+tests/.coverage
+tests/.results
+.coverage
+Pipfile
+
+*.egg-info
+__pycache__
