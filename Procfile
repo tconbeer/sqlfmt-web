@@ -1,1 +1,1 @@
-web: poetry run sqlfmt-web
+web: sqlfmt-web
