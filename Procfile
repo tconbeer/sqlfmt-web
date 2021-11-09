@@ -1,1 +1,1 @@
-web: sqlfmt-web
+web: python src/sqlfmt_web/index.py

@@ -47,5 +47,9 @@ def main() -> None:
 
 
 def serve_index() -> None:
-    port = os.environ.get("PORT", 8080)
+    port = os.environ.get("PORT", 5000)
     start_server(main, port=port, websocket_ping_interval=30)
+
+
+if __name__ == "__main__":
+    serve_index()
