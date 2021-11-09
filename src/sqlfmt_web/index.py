@@ -1,7 +1,9 @@
+import os
+
 from pywebio import output, pin, start_server
 from sqlfmt.api import format_string
 from sqlfmt.mode import Mode
-import os
+
 
 def greeting() -> str:
 
@@ -26,19 +28,17 @@ def greeting() -> str:
     return "\n".join(greeting)
 
 
-def update_textarea() -> None:
+def update_textarea() -> str:
     mode = Mode()
     source_sql = pin.pin["source_sql"]
-    formatted = format_string(source=source_sql, mode=mode)
+    formatted: str = format_string(source=source_sql, mode=mode)
     pin.pin_update("source_sql", value=formatted)
     return formatted
 
 
-def main(value="") -> None:
+def main() -> None:
     output.put_markdown(greeting(), lstrip=True)
-    pin.put_textarea(
-        "source_sql", rows=20, code={"mode": "sql", "indentUnit": 4}, value=value
-    )
+    pin.put_textarea("source_sql", rows=20, code={"mode": "sql", "indentUnit": 4})
     output.put_button(
         label="sqlfmt!",
         onclick=update_textarea,
@@ -46,6 +46,6 @@ def main(value="") -> None:
     )
 
 
-if __name__ == "__main__":
-    port = os.environ.get('PORT', 8080)
+def serve_index() -> None:
+    port = os.environ.get("PORT", 8080)
     start_server(main, port=port, websocket_ping_interval=30)
