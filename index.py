@@ -1,18 +1,24 @@
-from pywebio import input, output, pin, start_server
+from pywebio import output, pin, start_server
 from sqlfmt.api import format_string
 from sqlfmt.mode import Mode
-
+import os
 
 def greeting() -> str:
 
     greeting = [
-        "# Automatically format your SQL files",
+        "# sqlfmt: The Opinionated SQL Formatter",
+        "sqlfmt enforces a single style in SQL, similar to black for Python.",
+        "## Getting Started with sqlfmt",
         (
-            "sqlfmt enforces a single style in SQL, similar to black for "
-            "Python. You can install it with `pip install shandy-sqlfmt`, "
-            "or try it out below "
+            "If you want to use the sqlfmt cli, visit the [Github Repo]"
+            "(https://github.com/tconbeer/sqlfmt) for more information, "
+            "or `pipx install shandy-sqlfmt`"
         ),
-        "## Enter SQL below",
+        "## Or you can try it out here",
+        (
+            "Type or paste SQL into the box below, then click the button to "
+            "see your code beautifully formatted"
+        ),
     ]
 
     return "\n".join(greeting)
@@ -25,13 +31,11 @@ def update_textarea() -> None:
     pin.pin_update("source_sql", value=formatted)
     return formatted
 
+
 def main(value="") -> None:
     output.put_markdown(greeting(), lstrip=True)
     pin.put_textarea(
-        "source_sql",
-        rows=20,
-        code={"mode": "sql", "indentUnit": 4},
-        value=value
+        "source_sql", rows=20, code={"mode": "sql", "indentUnit": 4}, value=value
     )
     output.put_button(
         label="sqlfmt!",
@@ -39,5 +43,7 @@ def main(value="") -> None:
         color="primary",
     )
 
+
 if __name__ == "__main__":
-    start_server(main)
+    port = os.environ.get('PORT', 8080)
+    start_server(main, port=port, websocket_ping_interval=30)
