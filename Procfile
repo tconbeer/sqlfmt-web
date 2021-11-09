@@ -1,1 +1,1 @@
-web: python index.py --port=$PORT
+web: poetry run sqlfmt-web
