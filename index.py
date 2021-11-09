@@ -10,8 +10,10 @@ def greeting() -> str:
         "sqlfmt enforces a single style in SQL, similar to black for Python.",
         "## Getting Started with sqlfmt",
         (
-            "If you want to use the sqlfmt cli, visit the [Github Repo]"
-            "(https://github.com/tconbeer/sqlfmt) for more information, "
+            "If you want to use the sqlfmt CLI, "
+            "on MacOS, Linux, or Windows, "
+            "visit the [Github Repo](https://github.com/tconbeer/sqlfmt) "
+            "for more information, "
             "or `pipx install shandy-sqlfmt`"
         ),
         "## Or you can try it out here",
