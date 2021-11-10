@@ -43,6 +43,8 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Tests
+        env:
+          MOZ_HEADLESS: 1
         run: |
           poetry run pytest \
             --driver Firefox \
