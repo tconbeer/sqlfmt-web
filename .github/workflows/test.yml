@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Check out Repo
         uses: actions/checkout@v2
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v1
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -32,5 +30,4 @@ jobs:
         run: |
           poetry run pytest \
             --driver Chrome \
-            --driver-path /usr/local/bin/chromedriver \
             --base-url ${{ steps.review_app_test.outputs.review_app_url }}
