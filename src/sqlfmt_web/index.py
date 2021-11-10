@@ -1,6 +1,6 @@
 import os
 
-from pywebio import output, pin, start_server
+from pywebio import config, output, pin, start_server
 from sqlfmt.api import format_string
 from sqlfmt.mode import Mode
 
@@ -36,7 +36,7 @@ def update_textarea() -> str:
     return formatted
 
 
-def main() -> None:
+def index() -> None:
     output.put_markdown(greeting(), lstrip=True)
     pin.put_textarea("source_sql", rows=20, code={"mode": "sql", "indentUnit": 4})
     output.put_button(
@@ -47,8 +47,16 @@ def main() -> None:
 
 
 def serve_index() -> None:
+    config(
+        title="sqlfmt: The Opinionated SQL Formatter",
+        description=(
+            "sqlfmt is an opinionated CLI tool that formats your dbt sql "
+            "files. It is similar in nature to black, gofmt, and rustfmt."
+        ),
+        css_style="footer {display: none;}",
+    )
     port = os.environ.get("PORT", 5000)
-    start_server(main, port=port, websocket_ping_interval=30)
+    start_server(index, port=port, websocket_ping_interval=30)
 
 
 if __name__ == "__main__":
