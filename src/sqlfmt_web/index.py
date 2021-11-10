@@ -53,6 +53,7 @@ def serve_index() -> None:
             "sqlfmt is an opinionated CLI tool that formats your dbt sql "
             "files. It is similar in nature to black, gofmt, and rustfmt."
         ),
+        css_style="footer {display: none;}",
     )
     port = os.environ.get("PORT", 5000)
     start_server(index, port=port, websocket_ping_interval=30)
