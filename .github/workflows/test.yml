@@ -15,11 +15,27 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8.10
+      - name: Load cached Poetry installation
+        id: cached-poetry
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/bin/poetry
+          key: poetry-0  # increment to reset cache
       - name: Install Poetry
+        if: steps.cached-poetry.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
         with:
           version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install Test Dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-root --no-interaction
       - name: Ensure Review App Builds
         id: review_app_test 
@@ -30,5 +46,4 @@ jobs:
         run: |
           poetry run pytest \
             --driver Firefox \
-            --driver-path $GECKOWEBDRIVER
             --base-url ${{ steps.review_app_test.outputs.review_app_url }}
