@@ -15,12 +15,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8.10
-      - name: Load cached Poetry installation
-        id: cached-poetry
-        uses: actions/cache@v2
-        with:
-          path: ~/.local/bin/poetry
-          key: poetry-0  # increment to reset cache
       - name: Install Poetry
         if: steps.cached-poetry.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
@@ -36,7 +30,7 @@ jobs:
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install Test Dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: ~/.local/bin/poetry install --no-root --no-interaction
+        run: poetry install --no-root --no-interaction
       - name: Ensure Review App Builds
         id: review_app_test 
         uses: niteoweb/reviewapps-deploy-status@v1.4.0
@@ -46,6 +40,6 @@ jobs:
         env:
           MOZ_HEADLESS: 1
         run: |
-          ~/.local/bin/poetry run pytest \
+          poetry run pytest \
             --driver Firefox \
             --base-url ${{ steps.review_app_test.outputs.review_app_url }}
