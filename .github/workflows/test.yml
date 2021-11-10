@@ -1,0 +1,37 @@
+name: Test Review App on Heroku
+
+on:
+  pull_request:
+
+jobs:
+  test-review-app:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out Repo
+        uses: actions/checkout@v2
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@v1
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.10
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+      - name: Install Test Dependencies
+        run: poetry install --no-root --no-interaction
+      - name: Ensure Review App Builds
+        id: review_app_test 
+        uses: niteoweb/reviewapps-deploy-status@v1.4.0
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Tests
+        run: |
+          poetry run pytest \
+            --driver Chrome \
+            --base-url ${{ steps.review_app_test.outputs.review_app_url }}
