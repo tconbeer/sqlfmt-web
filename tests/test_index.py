@@ -4,7 +4,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-@pytest.mark.xfail
 @pytest.mark.nondestructive
 def test_index_title_and_header(selenium, base_url) -> None:
     # given that we go to sqlfmt.com
