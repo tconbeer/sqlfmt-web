@@ -11,7 +11,8 @@ It is deployed on Heroku.
 1. Install Python and poetry
 1. Install the Heroku CLI: `brew install heroku/brew/heroku`
 2. Install dependencies into a venv with `poetry install`
-2. Launch the application: `poetry run heroku local web`
+3. Activate the venv: `poetry shell`
+2. Launch the application: `heroku local web`
 3. Open a browser and visit `http://localhost:5000`. Voila
 
 ### Using Poetry

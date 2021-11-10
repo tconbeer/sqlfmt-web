@@ -2,6 +2,7 @@ import os
 
 from pywebio import config, output, pin, start_server
 from sqlfmt.api import format_string
+from sqlfmt.exception import SqlfmtError
 from sqlfmt.mode import Mode
 
 
@@ -28,12 +29,31 @@ def greeting() -> str:
     return "\n".join(greeting)
 
 
-def update_textarea() -> str:
+def update_textarea() -> None:
     mode = Mode()
     source_sql = pin.pin["source_sql"]
-    formatted: str = format_string(source=source_sql, mode=mode)
-    pin.pin_update("source_sql", value=formatted)
-    return formatted
+    try:
+        formatted: str = format_string(source=source_sql, mode=mode)
+    except SqlfmtError as e:
+        output.toast(
+            content=str(e),
+            color="error",
+            duration=2,
+        )
+    else:
+        pin.pin_update("source_sql", value=formatted)
+        if source_sql != formatted:
+            output.toast(
+                content="Success! Formatting applied",
+                color="success",
+                duration=1,
+            )
+        else:
+            output.toast(
+                content="SQL already formatted",
+                color="info",
+                duration=1,
+            )
 
 
 def index() -> None:
