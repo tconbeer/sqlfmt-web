@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8.10
+          python-version: 3.9
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
@@ -26,13 +26,9 @@ jobs:
         uses: niteoweb/reviewapps-deploy-status@v1.4.0
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Configure browser
-        run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: Run Tests
         run: |
           poetry run pytest \
-            --driver Chrome \
+            --driver Firefox \
+            --driver-path $GECKOWEBDRIVER
             --base-url ${{ steps.review_app_test.outputs.review_app_url }}
