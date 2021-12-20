@@ -25,3 +25,10 @@ It is deployed on Heroku.
 1. Create a new branch, make commits to that branch
 2. Open a PR to main
 3. When the PR to main is merged, Heroku will automatically deploy the new code to prod
+
+### Bumping versions of sqlfmt
+1. Create a new branch
+2. Delete poetry.lock
+3. In pyproject.toml, change version of sqlfmt-web to 0.x.0 and bump the dependency on sqlfmt to ^0.x.0
+4. Use `poetry run make` to run test suite
+5. Commit, push, open PR
