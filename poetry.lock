@@ -532,7 +532,7 @@ urllib3 = {version = ">=1.26,<2.0", extras = ["secure"]}
 
 [[package]]
 name = "shandy-sqlfmt"
-version = "0.4.0"
+version = "0.4.1"
 description = "sqlfmt is an opinionated CLI tool that formats your sql files"
 category = "main"
 optional = false
@@ -715,7 +715,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.8.10"
-content-hash = "efbe34adb3aa2184cc22d60ee036b2a440c613feb17a300edf9a78dac822ec72"
+content-hash = "9a14d6f84323614b3982b14a0e4f5fb1e9a39a79021bd5cfab5af0c61d589721"
 
 [metadata.files]
 async-generator = [
@@ -1015,8 +1015,8 @@ selenium = [
     {file = "selenium-4.1.0-py3-none-any.whl", hash = "sha256:27e7b64df961d609f3d57237caa0df123abbbe22d038f2ec9e332fb90ec1a939"},
 ]
 shandy-sqlfmt = [
-    {file = "shandy-sqlfmt-0.4.0.tar.gz", hash = "sha256:ce27ea02a94208788969f0d5af6f28edab8a1866194757c891a9f01c58a1354b"},
-    {file = "shandy_sqlfmt-0.4.0-py3-none-any.whl", hash = "sha256:6fa2f7ac4f62456bbc461c276e980079555354dd2c95c5bcdb884a79a370f3f0"},
+    {file = "shandy-sqlfmt-0.4.1.tar.gz", hash = "sha256:7c4c61c158f0b2e84225c68a24395e6f6a66317a23f4a41382dc1aaa4876e58b"},
+    {file = "shandy_sqlfmt-0.4.1-py3-none-any.whl", hash = "sha256:7a8fd0b0708238a335873f90cc5ec2cf213ccf7a5be8caa54fa7a28a7257f6bc"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

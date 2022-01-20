@@ -29,7 +29,7 @@ It is deployed on Heroku.
 ### Bumping versions of sqlfmt
 1. Create a new branch
 2. In pyproject.toml, change version of sqlfmt-web to 0.x.0 and bump the dependency on sqlfmt to ^0.x.0
-3. Run `poetry lock` to update the poetry.lock file
+3. Run `poetry lock` to update the poetry.lock file. If this fails (can't find new version of sqlfmt), try `poetry cache clear pypi --all`
 4. Run `poetry install --remove-untracked` to install the updated dependecies
 4. Use `poetry run make` to run test suite
 5. Commit, push, open PR
