@@ -1,5 +1,5 @@
 # sqlfmt-web
-The code behind sqlfmt.com, a web UI for sqlfmt.
+The code behind [sqlfmt.com](http://sqlfmt.com), a web UI for [sqlfmt](https://github.com/tconbeer/sqlfmt).
 
 This project uses [pywebio](https://www.pyweb.io/), which makes it very simple.
 

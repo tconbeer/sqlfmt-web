@@ -9,11 +9,29 @@ from sqlfmt.mode import Mode
 def greeting() -> str:
 
     greeting = [
-        "# sqlfmt: The Opinionated SQL Formatter",
-        "sqlfmt enforces a single style in SQL, similar to black for Python.",
-        "## Getting Started with sqlfmt",
+        "# sqlfmt",
         (
-            "If you want to use the sqlfmt CLI, "
+            "sqlfmt formats your dbt SQL files so you don't have to. It is similar "
+            "in nature to black, gofmt, and rustfmt (but for SQL)."
+        ),
+        "When you use sqlfmt:",
+        (
+            "1. You never have to mention (or argue about) code style in code "
+            "reviews again"
+        ),
+        (
+            "1. You make it easier to collaborate and solicit contributions from "
+            "new people"
+        ),
+        "1. You will be able to read your team's code as if you wrote it",
+        (
+            "1. You can forget about formatting your code, and spend your time on "
+            "business logic instead"
+        ),
+        "",
+        "## Installing sqlfmt",
+        (
+            "If you want to use the sqlfmt command-line tool "
             "on MacOS, Linux, or Windows, "
             "visit the [Github Repo](https://github.com/tconbeer/sqlfmt) "
             "for more information, "
@@ -22,7 +40,7 @@ def greeting() -> str:
         "## Or you can try it out here",
         (
             "Type or paste SQL into the box below, then click the button to "
-            "see your code beautifully formatted"
+            "see your code in the sqlfmt style"
         ),
     ]
 
