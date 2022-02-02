@@ -93,7 +93,7 @@ def test_index_end_to_end(selenium, base_url) -> None:
     assert info_banner.text == "SQL already formatted"
 
 
-@pytest.mark.parametrize("bad_sql", [")", "?", "select /*"])
+@pytest.mark.parametrize("bad_sql", [")", "$", "select /*"])
 def test_index_error(selenium, base_url, bad_sql) -> None:
 
     # given that we go to sqlfmt.com
