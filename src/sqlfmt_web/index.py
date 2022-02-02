@@ -51,7 +51,7 @@ def update_textarea() -> None:
     mode = Mode()
     source_sql = pin.pin["source_sql"]
     try:
-        formatted: str = format_string(source=source_sql, mode=mode)
+        formatted: str = format_string(source_string=source_sql, mode=mode)
     except SqlfmtError as e:
         output.toast(
             content=str(e),
