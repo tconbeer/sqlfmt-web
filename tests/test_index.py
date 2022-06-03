@@ -1,6 +1,7 @@
 import time
 
 import pytest
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -28,6 +29,16 @@ def get_submit_button(context, do_click=True):
     if do_click:
         submit_button.click()
     return submit_button
+
+
+def scroll_and_move_to_element(context, element):
+    if "firefox" in context.capabilities["browserName"]:
+        window_rect = context.get_window_rect()
+        y = element.location["y"]
+        scroll_amount = y - window_rect["y"] - (window_rect["height"] / 2)
+        context.execute_script(f"window.scrollBy(0, {scroll_amount});")
+    ActionChains(context).move_to_element(element).perform()
+    return element
 
 
 @pytest.mark.nondestructive
@@ -72,15 +83,15 @@ def test_index_end_to_end(selenium, base_url) -> None:
     # we click the button
     submit_button.click()
 
-    # we see that the code has been formatted
-    new_first_line = WebDriverWait(selenium, timeout=5).until(
-        lambda d: d.find_element(By.CLASS_NAME, "CodeMirror-line")
+    # we see that there is a new banner on the page
+    banner = WebDriverWait(selenium, timeout=5).until(
+        lambda d: d.find_element(By.CLASS_NAME, "toastify")
     )
-    assert new_first_line.text == "select a, b, c from my_table"
-
-    # and that there is a new banner on the page
-    banner = selenium.find_element(By.CLASS_NAME, "toastify")
     assert banner.text == "Success! Formatting applied"
+
+    # and we see that the code has been formatted
+    new_first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
+    assert new_first_line.text == "select a, b, c from my_table"
 
     # the banner disappears after a few seconds
     time.sleep(3)
@@ -89,8 +100,60 @@ def test_index_end_to_end(selenium, base_url) -> None:
     submit_button.click()
 
     # and see a different banner
-    info_banner = selenium.find_element(By.CLASS_NAME, "toastify")
+    info_banner = WebDriverWait(selenium, timeout=5).until(
+        lambda d: d.find_element(By.CLASS_NAME, "toastify")
+    )
     assert info_banner.text == "SQL already formatted"
+
+
+def test_index_with_config(selenium, base_url) -> None:
+
+    # given that we go to sqlfmt.com
+    selenium.get(base_url)
+
+    textarea = get_active_textarea(selenium)
+    # we type some poorly formatted sql into it
+    fifty_three_chars = "select something_long, something_long, something_long"
+    textarea.send_keys(fifty_three_chars)
+
+    first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
+    assert first_line.text == fifty_three_chars
+
+    # we see there is a toggle for formatting options
+    details = selenium.find_element(By.TAG_NAME, "details")
+    assert details
+    assert not details.get_property("open")
+    summary = details.find_element(By.TAG_NAME, "summary")
+    assert summary.text == "Configure Formatting"
+
+    # we click the toggle and it opens
+    scroll_and_move_to_element(selenium, details)
+    details.click()
+    assert details.get_property("open")
+
+    # we see the default line length is 88
+    slider_value = selenium.find_element(By.CLASS_NAME, "form-control-range-value")
+    assert slider_value
+    assert slider_value.text == "88"
+
+    # we set the line_length slider to minimum (40)
+    slider = selenium.find_element(By.CLASS_NAME, "form-control-range")
+    assert slider
+    ActionChains(selenium).drag_and_drop_by_offset(slider, -400, 0).perform()
+    assert slider_value.text == "40"
+
+    # we click the button that says "sqlfmt!"
+    _ = get_submit_button(selenium, do_click=True)
+
+    # we see that there is a new banner on the page
+    banner = WebDriverWait(selenium, timeout=5).until(
+        lambda d: d.find_element(By.CLASS_NAME, "toastify")
+    )
+    assert banner.text == "Success! Formatting applied"
+
+    # and we see that the code has been formatted with a short line length
+    new_first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
+    assert new_first_line.text == "select"
 
 
 @pytest.mark.parametrize("bad_sql", [")", "$", "select /*"])

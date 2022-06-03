@@ -47,8 +47,24 @@ def greeting() -> str:
     return "\n".join(greeting)
 
 
+def details_template() -> str:
+    tpl = """
+    <details>
+        <summary style="background-color: #ffffff">{{title}}</summary>
+        {{#contents}}
+            {{& pywebio_output_parse}}
+        {{/contents}}
+    </details>
+    """
+    return tpl
+
+
 def update_textarea() -> None:
-    mode = Mode()
+    kwargs = {
+        "line_length": pin.pin["line_length"],
+        "no_jinjafmt": False if "jinjafmt" in pin.pin["flags"] else True,
+    }
+    mode = Mode(**kwargs)
     source_sql = pin.pin["source_sql"]
     try:
         formatted: str = format_string(source_string=source_sql, mode=mode)
@@ -76,20 +92,52 @@ def update_textarea() -> None:
 
 def index() -> None:
     output.put_markdown(greeting(), lstrip=True)
+
     pin.put_textarea("source_sql", rows=20, code={"mode": "sql", "indentUnit": 4})
-    output.put_button(
-        label="sqlfmt!",
-        onclick=update_textarea,
-        color="primary",
+    output.put_row(
+        [
+            output.put_button(
+                label="sqlfmt!",
+                onclick=update_textarea,
+                color="primary",
+            ),
+            output.put_widget(
+                details_template(),
+                {
+                    "title": "Configure Formatting",
+                    "contents": [
+                        pin.put_slider(
+                            "line_length",
+                            label="Maximum line length",
+                            value=88,
+                            min_value=40,
+                            max_value=140,
+                            step=1,
+                        ),
+                        pin.put_checkbox(
+                            "flags",
+                            options=[
+                                {
+                                    "label": "Format jinja tags",
+                                    "value": "jinjafmt",
+                                    "selected": True,
+                                }
+                            ],
+                        ),
+                    ],
+                },
+            ),
+        ],
+        size="25% 75%",
     )
 
 
 def serve_index() -> None:
     config(
-        title="sqlfmt: The Opinionated SQL Formatter",
+        title="sqlfmt: The autoformatter for dbt SQL",
         description=(
-            "sqlfmt is an opinionated CLI tool that formats your dbt sql "
-            "files. It is similar in nature to black, gofmt, and rustfmt."
+            "sqlfmt formats your dbt SQL files so you don't have to. "
+            "It is similar in nature to black, gofmt, and rustfmt."
         ),
         css_style="footer {display: none;}",
     )
