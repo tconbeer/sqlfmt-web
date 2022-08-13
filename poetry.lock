@@ -136,15 +136,15 @@ python-versions = "*"
 
 [[package]]
 name = "filelock"
-version = "3.8.0"
+version = "3.7.1"
 description = "A platform independent file lock."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo (>=2022.6.21)", "sphinx (>=5.1.1)", "sphinx-autodoc-typehints (>=1.19.1)"]
-testing = ["covdefaults (>=2.2)", "coverage (>=6.4.2)", "pytest (>=7.1.2)", "pytest-cov (>=3)", "pytest-timeout (>=2.1)"]
+docs = ["furo (>=2021.8.17b43)", "sphinx (>=4.1)", "sphinx-autodoc-typehints (>=1.12)"]
+testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-cov", "pytest-timeout (>=1.4.2)"]
 
 [[package]]
 name = "flake8"
@@ -169,7 +169,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "identify"
-version = "2.5.3"
+version = "2.5.2"
 description = "File identification library for Python"
 category = "dev"
 optional = false
@@ -525,7 +525,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "selenium"
-version = "4.4.0"
+version = "4.3.0"
 description = ""
 category = "dev"
 optional = false
@@ -538,7 +538,7 @@ urllib3 = {version = ">=1.26,<2.0", extras = ["secure", "socks"]}
 
 [[package]]
 name = "shandy-sqlfmt"
-version = "0.10.1"
+version = "0.10.0"
 description = "sqlfmt is an opinionated CLI tool that formats your sql files"
 category = "main"
 optional = false
@@ -695,20 +695,20 @@ ua-parser = ">=0.10.0"
 
 [[package]]
 name = "virtualenv"
-version = "20.16.3"
+version = "20.16.2"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-distlib = ">=0.3.5,<1"
-filelock = ">=3.4.1,<4"
-platformdirs = ">=2.4,<3"
+distlib = ">=0.3.1,<1"
+filelock = ">=3.2,<4"
+platformdirs = ">=2,<3"
 
 [package.extras]
-docs = ["proselint (>=0.13)", "sphinx (>=5.1.1)", "sphinx-argparse (>=0.3.1)", "sphinx-rtd-theme (>=1)", "towncrier (>=21.9)"]
-testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=21.3)", "pytest (>=7.0.1)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.6.1)", "pytest-randomly (>=3.10.3)", "pytest-timeout (>=2.1)"]
+docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
+testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "packaging (>=20.0)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)"]
 
 [[package]]
 name = "wsproto"
@@ -748,7 +748,10 @@ click = [
 colorama = []
 cryptography = []
 distlib = []
-filelock = []
+filelock = [
+    {file = "filelock-3.7.1-py3-none-any.whl", hash = "sha256:37def7b658813cda163b56fc564cdc75e86d338246458c4c28ae84cabefa2404"},
+    {file = "filelock-3.7.1.tar.gz", hash = "sha256:3a0fd85166ad9dbab54c9aec96737b744106dc5f15c0b09a6744a445299fcf04"},
+]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},

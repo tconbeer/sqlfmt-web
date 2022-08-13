@@ -56,18 +56,6 @@ def test_index_title_and_header(selenium, base_url) -> None:
     assert "sqlfmt" in h1_tag.text
 
 
-@pytest.mark.nondestructive
-def test_index_tracking(selenium, base_url) -> None:
-    # given that we go to sqlfmt.com
-    selenium.get(base_url)
-
-    # we see that there is a script tag that includes code with the word "posthog"
-    script_tags = WebDriverWait(selenium, timeout=5).until(
-        lambda d: d.find_elements(By.TAG_NAME, "script")
-    )
-    assert any(["posthog" in tag.get_attribute("innerHTML") for tag in script_tags])
-
-
 def test_index_end_to_end(selenium, base_url) -> None:
 
     # given that we go to sqlfmt.com
