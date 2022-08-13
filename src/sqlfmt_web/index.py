@@ -4,6 +4,7 @@ from pywebio import config, output, pin, start_server
 from sqlfmt.api import format_string
 from sqlfmt.exception import SqlfmtError
 from sqlfmt.mode import Mode
+from sqlfmt_web.header import HEADER
 
 
 def greeting() -> str:
@@ -140,6 +141,7 @@ def serve_index() -> None:
             "It is similar in nature to black, gofmt, and rustfmt."
         ),
         css_style="footer {display: none;}",
+        js_code=HEADER,
     )
     port = os.environ.get("PORT", 5000)
     start_server(index, port=port, websocket_ping_interval=30)
