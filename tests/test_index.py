@@ -24,11 +24,19 @@ def get_active_textarea(context):
 
 
 def get_submit_button(context, do_click=True):
-    submit_button = context.find_element(By.TAG_NAME, "button")
+    submit_button = context.find_element(By.CSS_SELECTOR, ".btn-primary")
     assert submit_button
     if do_click:
         submit_button.click()
     return submit_button
+
+
+def get_example_button(context, do_click=True):
+    example_button = context.find_element(By.CSS_SELECTOR, ".btn-link")
+    assert example_button
+    if do_click:
+        example_button.click()
+    return example_button
 
 
 def scroll_and_move_to_element(context, element):
@@ -186,3 +194,26 @@ def test_index_error(selenium, base_url, bad_sql) -> None:
     # we see an error banner, with a helpful message
     error_banner = selenium.find_element(By.CLASS_NAME, "toastify")
     assert "sqlfmt encountered an error:" in error_banner.text
+
+
+def test_index_example(selenium, base_url) -> None:
+
+    # given that we go to sqlfmt.com
+    selenium.get(base_url)
+
+    # we see that the textarea is empty
+    first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
+    assert first_line.text == ""
+
+    # we click the load example button
+    btn = get_example_button(selenium, do_click=True)
+    assert btn.text == "Load example query"
+
+    time.sleep(1)
+
+    # we see that the textarea has the example query
+    first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
+    assert (
+        first_line.text
+        == "with source as (select * from {{ source('my_application', 'users') }}),"
+    )
