@@ -42,7 +42,6 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
 tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
-typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -650,7 +649,7 @@ wsproto = ">=0.14"
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -723,8 +722,8 @@ h11 = ">=0.9.0,<1"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.8.10"
-content-hash = "bd8ca3a0f8d18ebfbe40440d8621ad60a9a0dc711fc575161ade444d2091d390"
+python-versions = "3.10.6"
+content-hash = "a7076f266e4e176a5474adf482a10d34e2d7710ef9e36469293a6120a745fd81"
 
 [metadata.files]
 async-generator = [
