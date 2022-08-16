@@ -1,8 +1,8 @@
 .PHONY: check
 check:
-	sqlfmt-web &
+	heroku local &
 	MOZ_HEADLESS=1 pytest --driver Firefox
-	pkill sqlfmt-web
+	pkill python
 	isort .
 	black .
 	flake8 .

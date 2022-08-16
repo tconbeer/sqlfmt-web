@@ -1,1 +1,1 @@
-web: python src/sqlfmt_web/index.py
+web: cd src && python -m sqlfmt_web
