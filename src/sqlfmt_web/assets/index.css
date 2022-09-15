@@ -120,6 +120,18 @@ html, body{
     margin-left:.3rem
 }
 
+/* nav bar */
+
+.markdown-body .navbar__logo{
+    height: 100%;
+    flex:0 0 auto;
+    height:2rem;
+    margin-right:.5rem
+}
+.markdown-body img{
+    height: 100%;
+}
+
 /* dark mode buttons */
 .toggleButton{
     align-items:center;

@@ -239,3 +239,17 @@ def test_dark_mode(selenium, base_url) -> None:
 
     # and we see that the theme has changed to dark
     assert html.get_attribute("data-theme") == "dark"
+
+
+def test_logo(selenium, base_url) -> None:
+    # given that we go to sqlfmt.com
+    selenium.get(base_url)
+
+    # we see that there is a logo in the nav bar
+    logo = WebDriverWait(selenium, timeout=5).until(
+        lambda d: d.find_element(By.CSS_SELECTOR, ".navbar__logo>img")
+    )
+    assert logo
+
+    # the logo is not a broken image
+    assert logo.get_property("naturalWidth") > 0
