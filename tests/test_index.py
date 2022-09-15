@@ -207,9 +207,9 @@ def test_index_example(selenium, base_url) -> None:
 
     # we click the load example button
     btn = get_example_button(selenium, do_click=True)
-    assert btn.text == "Load example query"
+    assert btn.text == "Load example unformatted query"
 
-    time.sleep(1)
+    time.sleep(0.1)
 
     # we see that the textarea has the example query
     first_line = selenium.find_element(By.CLASS_NAME, "CodeMirror-line")
@@ -217,3 +217,25 @@ def test_index_example(selenium, base_url) -> None:
         first_line.text
         == "with source as (select * from {{ source('my_application', 'users') }}),"
     )
+
+
+def test_dark_mode(selenium, base_url) -> None:
+    # given that we go to sqlfmt.com
+    selenium.get(base_url)
+
+    # we see that the html tag has a data-theme property set to light
+    html = selenium.find_element(By.TAG_NAME, "html")
+    assert html.get_attribute("data-theme") == "light"
+
+    # we see the theme toggle button
+    toggle_button = WebDriverWait(selenium, timeout=5).until(
+        lambda d: d.find_element(By.CLASS_NAME, "toggleButton")
+    )
+    assert toggle_button
+
+    # we click it
+    toggle_button.click()
+    time.sleep(0.1)
+
+    # and we see that the theme has changed to dark
+    assert html.get_attribute("data-theme") == "dark"

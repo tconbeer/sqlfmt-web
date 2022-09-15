@@ -121,7 +121,7 @@ html, body{
 }
 
 /* dark mode buttons */
-.toggleButton_gllP{
+.toggleButton{
     align-items:center;
     border-radius:50%;
     display:flex;
@@ -130,10 +130,10 @@ html, body{
     transition:background var(--ifm-transition-fast);
     width:100%
 }
-.toggleButton_gllP:hover{
+.toggleButton:hover{
     background:var(--ifm-color-emphasis-200)
 }
-[data-theme=dark] .lightToggleIcon_pyhR,[data-theme=light] .darkToggleIcon_wfgR {
+[data-theme=dark] .lightToggleIcon,[data-theme=light] .darkToggleIcon {
     display: none;
 }
 

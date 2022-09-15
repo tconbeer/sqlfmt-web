@@ -23,5 +23,6 @@ function toggle_theme() {
     set_theme(new_theme, current_theme)
 };
 function get_theme_from_storage() {
-    return localStorage.getItem("theme")
+    t = localStorage.getItem("theme");
+    return t?t:"light";
 };
