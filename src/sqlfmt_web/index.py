@@ -1,28 +1,13 @@
 import os
 
 from pywebio import config, output, pin, start_server
-from sqlfmt.api import format_string
+from sqlfmt.api import Mode, format_string
 from sqlfmt.exception import SqlfmtError
-from sqlfmt.mode import Mode
-from sqlfmt_web.example import EXAMPLE
-from sqlfmt_web.greeting import GREETING
-from sqlfmt_web.script import SCRIPT
-
-
-def details_template() -> str:
-    tpl = """
-    <details>
-        <summary style="background-color: #ffffff">{{title}}</summary>
-        {{#contents}}
-            {{& pywebio_output_parse}}
-        {{/contents}}
-    </details>
-    """
-    return tpl
+from sqlfmt_web.assets import load_asset
 
 
 def load_example() -> None:
-    pin.pin_update("source_sql", value=EXAMPLE)
+    pin.pin_update("source_sql", value=load_asset("example.sql"))
 
 
 def format_textarea() -> None:
@@ -57,12 +42,25 @@ def format_textarea() -> None:
 
 
 def index() -> None:
-    output.put_markdown(GREETING, lstrip=True)
-    output.put_button(
-        label="Load example query", onclick=load_example, small=True, link_style=True
+    body_style = (
+        "max-width: 880px; display: block; "
+        "margin-left: auto; margin-right: auto; "
+        "padding-left: 15px; padding-right: 15px;"
     )
+    output.put_html(load_asset("nav.html"))
+    output.put_markdown(load_asset("greeting.md"), lstrip=True).style(body_style)
+    output.put_button(
+        label="Load example unformatted query",
+        onclick=load_example,
+        small=True,
+        link_style=True,
+    ).style(body_style)
 
-    pin.put_textarea("source_sql", rows=20, code={"mode": "sql", "indentUnit": 4})
+    pin.put_textarea(
+        "source_sql",
+        rows=20,
+        code={"mode": "sql", "indentUnit": 4, "theme": "base16-dark"},
+    ).style(body_style)
     output.put_row(
         [
             output.put_button(
@@ -71,7 +69,7 @@ def index() -> None:
                 color="primary",
             ),
             output.put_widget(
-                details_template(),
+                load_asset("details_template.html"),
                 {
                     "title": "Configure Formatting",
                     "contents": [
@@ -98,7 +96,9 @@ def index() -> None:
             ),
         ],
         size="25% 75%",
-    )
+    ).style(body_style)
+    output.put_html(load_asset("footer.html"))
+    output.put_html("<script>set_theme(get_theme_from_storage())</script>")
 
 
 def serve_index() -> None:
@@ -108,8 +108,8 @@ def serve_index() -> None:
             "sqlfmt formats your dbt SQL files so you don't have to. "
             "It is similar in nature to black, gofmt, and rustfmt."
         ),
-        css_style="footer {display: none;}",
-        js_code=SCRIPT,
+        css_style=load_asset("index.css"),
+        js_code=load_asset("script.js"),
     )
     port = os.environ.get("PORT", 5000)
     start_server(index, port=port, websocket_ping_interval=30)

@@ -1,10 +1,7 @@
-# flake8: noqa
-EXAMPLE = """
 with source as (select * from {{ source('my_application', 'users') }}),
   renamed as ( select
       --ids
-      id,
-      NULLIF(xid,'') as xid,
+      id, NULLIF(xid,'') as xid,
 
       --dates
       created_on, updated_on,
@@ -23,9 +20,7 @@ with source as (select * from {{ source('my_application', 'users') }}),
     FROM
     source
 
-    where nvl(is_deleted, false) is false
-      and id <> 123456 -- a very long comment about why we would exclude this user from this table that we will wrap
+    where nvl(is_deleted, false) is false and id <> 123456 -- a very long comment about why we would exclude this user from this table that we will wrap
 
   )
 select * from renamed
-""".lstrip()
