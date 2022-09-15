@@ -1,7 +1,6 @@
 # sqlfmt
 
-sqlfmt formats your dbt SQL files so you don't have to. It is similar in nature to black, gofmt, 
-and rustfmt (but for SQL). 
+sqlfmt formats your dbt SQL files so you don't have to. It is similar in nature to black, gofmt, and rustfmt (but for SQL). 
 
 1. **sqlfmt promotes collaboration.** An auto-formatter makes it easier to collaborate with your team and solicit contributions from new people. You will never have to mention (or argue about) code style in code reviews again.
 2. **sqlfmt is fast.** Forget about formatting your code, and spend your time on business logic instead. sqlfmt processes hundreds of files per second and only operates on files that have changed since the last run.

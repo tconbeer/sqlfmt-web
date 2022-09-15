@@ -43,7 +43,7 @@ def format_textarea() -> None:
 
 def index() -> None:
     body_style = (
-        "max-width: 880px; display: block; "
+        "max-width: var(--ifm-container-width); display: block; "
         "margin-left: auto; margin-right: auto; "
         "padding-left: 15px; padding-right: 15px;"
     )
@@ -96,7 +96,11 @@ def index() -> None:
             ),
         ],
         size="25% 75%",
-    ).style(body_style)
+    ).style(
+        "max-width: var(--ifm-container-width); "
+        "margin-left: auto; margin-right: auto; "
+        "padding-left: 15px; padding-right: 15px;"
+    )
     output.put_html(load_asset("footer.html"))
     output.put_html("<script>set_theme(get_theme_from_storage())</script>")
 

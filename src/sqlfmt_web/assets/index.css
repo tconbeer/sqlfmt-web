@@ -180,11 +180,6 @@ html, body{
     padding:0 var(--ifm-spacing-horizontal);
     width:100%;
 }
-@media (min-width:1440px){
-    .markdown-body .footer-container{
-        max-width:var(--ifm-container-width-xl)
-    }
-}
 .markdown-body .footer-row {
     display:flex;
     flex-wrap:wrap;
