@@ -506,7 +506,7 @@ urllib3 = {version = ">=1.26,<2.0", extras = ["socks"]}
 
 [[package]]
 name = "shandy-sqlfmt"
-version = "0.12.0"
+version = "0.13.0"
 description = "sqlfmt is an opinionated CLI tool that formats your sql files"
 category = "main"
 optional = false
@@ -520,8 +520,8 @@ tomli = {version = ">=2.0.1,<3.0.0", markers = "python_version < \"3.11\""}
 tqdm = ">=4.0,<5.0"
 
 [package.extras]
-jinjafmt = ["black"]
 sqlfmt_primer = ["gitpython (>=3.1.24,<4.0.0)"]
+jinjafmt = ["black"]
 
 [[package]]
 name = "six"
