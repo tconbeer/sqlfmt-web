@@ -11,7 +11,7 @@ sqlfmt formats your dbt SQL files so you don't have to. It is similar in nature 
 
 [Read the docs](https://docs.sqlfmt.com/category/getting-started) to get started.
 
-**tl;dr: `pip install shandy-sqlfmt[jinjafmt]`**
+**tl;dr: `pip install 'shandy-sqlfmt[jinjafmt]'`**
 
 ## Or you can try it out here
 
