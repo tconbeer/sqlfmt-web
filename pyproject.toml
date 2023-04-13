@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "sqlfmt-web"
-version = "0.14.0"
+version = "0.18.0"
 description = "The code behind sqlfmt.com, a web UI for sqlfmt"
 authors = ["Ted Conbeer <ted@shandy.io>"]
 license = "Apache-2.0"
@@ -16,7 +16,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "3.10.6"
-shandy-sqlfmt = { version = ">=0.14.0", extras = ["jinjafmt"] }
+shandy-sqlfmt = { version = ">=0.18.0", extras = ["jinjafmt"] }
 pywebio = "^1.5.2"
 certifi = "^2022.6.15"
 
