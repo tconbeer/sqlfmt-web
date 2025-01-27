@@ -15,8 +15,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "3.10.6"
-shandy-sqlfmt = { version = ">=0.18.0", extras = ["jinjafmt"] }
+python = "3.10.*"
+shandy-sqlfmt = { version = ">=0.26.0", extras = ["jinjafmt"] }
 pywebio = "^1.5.2"
 certifi = "^2022.6.15"
 
